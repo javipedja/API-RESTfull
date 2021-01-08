@@ -21,11 +21,11 @@ def translate(event, context):
         }
     )
     
-    translateText =  translateAWS.translate_text(Text=result['Item']['text'], SourceLanguageCode='auto', TargetLanguageCode=event['pathParameters']['lang'])
+    translateText =  translateAWS.translate_text(Text=result['Item']['text'], SourceLanguageCode='es', TargetLanguageCode=event['pathParameters']['lang'])
 
     item = {
         'id': result['Item']['id'],
-        'text': translateText,
+        'text': result.get('TranslatedText'),
         'checked': result['Item']['checked'],
         'createdAt': result['Item']['createdAt'],
         'updatedAt': result['Item']['updatedAt'],
