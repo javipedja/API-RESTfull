@@ -8,7 +8,7 @@ from todos import decimalencoder
 import boto3
 
 dynamodb = boto3.resource('dynamodb')
-translateAWS = boto3.client(service_name='translate')
+translateAWS = boto3.client(service_name='translate',region='us-east-1',use_ssl=True)
 
 
 def translate(event, context):
