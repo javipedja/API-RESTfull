@@ -26,7 +26,8 @@ def translate(event, context):
     # create a response
     response = {
         "statusCode": 200,
-        "body": json.dumps(result['Item'])
+        "body": json.dumps(result['Item'],
+                           cls=decimalencoder.DecimalEncoder)
         
     }
 
