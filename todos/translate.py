@@ -21,12 +21,20 @@ def translate(event, context):
         }
     )
     
-    result["Item"]["text"] =  translateAWS.translate_text(Text=result["Item"]["text"], SourceLanguageCode="es", TargetLanguageCode=event['pathParameters']['lang'])
+    translateText =  translateAWS.translate_text(Text=result["Item"]["text"], SourceLanguageCode="es", TargetLanguageCode=event['pathParameters']['lang'])
+
+    item = {
+        'id': result["Item"]["id"],
+        'text': translateText,
+        'checked': result["Item"]["checked"],
+        'createdAt': result["Item"]["createdAt"],
+        'updatedAt': result["Item"]["updatedAt"],
+    }
 
     # create a response
     response = {
         "statusCode": 200,
-        "body": json.dumps(result['Item'],
+        "body": json.dumps(item,
                            cls=decimalencoder.DecimalEncoder)
         
     }
