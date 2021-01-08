@@ -25,7 +25,7 @@ def translate(event, context):
 
     item = {
         'id': result['Item']['id'],
-        'text': result.get('TranslatedText'),
+        'text': translateText.get('TranslatedText'),
         'checked': result['Item']['checked'],
         'createdAt': result['Item']['createdAt'],
         'updatedAt': result['Item']['updatedAt'],
