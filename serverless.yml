@@ -27,6 +27,7 @@ provider:
       Action:
         - comprehend:*
       Resource: "*"
+      
 functions:
   create:
     handler: todos/create.create
