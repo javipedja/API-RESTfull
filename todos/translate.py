@@ -9,7 +9,7 @@ import boto3
 
 dynamodb = boto3.resource('dynamodb')
 translateAWS = boto3.client(service_name='translate',region_name='us-east-1',use_ssl=True)
-
+comprehend = boto3.client(service_name='comprehend', region_name='us-east-1')
 
 def translate(event, context):
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
@@ -21,7 +21,11 @@ def translate(event, context):
         }
     )
     
-    translateText =  translateAWS.translate_text(Text=result['Item']['text'], SourceLanguageCode='es', TargetLanguageCode=event['pathParameters']['lang'])
+    # Detectamos idioma
+    idioma = comprehend.detect_dominant_language(Text = result['Item']['text'])
+
+    # Traducimos
+    translateText =  translateAWS.translate_text(Text=result['Item']['text'], SourceLanguageCode=idioma['Languages'][0]['LanguageCode'], TargetLanguageCode=event['pathParameters']['lang'])
 
     item = {
         'id': result['Item']['id'],
