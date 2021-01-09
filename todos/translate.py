@@ -22,10 +22,11 @@ def translate(event, context):
     )
     
     # Detectamos idioma
-    idioma = comprehend.detect_dominant_language(Text = result['Item']['text'])
-
+    idiomasDetectados = comprehend.detect_dominant_language(Text = result['Item']['text'])
+    idioma = sorted(idiomasDetectados['Languages'], key=lambda k: k['LanguageCode'])[0]['LanguageCode']
+    
     # Traducimos
-    translateText =  translateAWS.translate_text(Text=result['Item']['text'], SourceLanguageCode=idioma['Languages'][0]['LanguageCode'], TargetLanguageCode=event['pathParameters']['lang'])
+    translateText =  translateAWS.translate_text(Text=result['Item']['text'], SourceLanguageCode=idioma, TargetLanguageCode=event['pathParameters']['lang'])
 
     item = {
         'id': result['Item']['id'],
