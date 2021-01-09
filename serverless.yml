@@ -19,7 +19,14 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
-
+    - Effect: Allow
+      Action:
+        - translate:*
+      Resource: "*"
+    - Effect: Allow
+      Action:
+        - comprehend:*
+      Resource: "*"
 functions:
   create:
     handler: todos/create.create
