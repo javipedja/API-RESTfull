@@ -2,7 +2,7 @@ org: unirpractica1
 app: todo-list-serverless
 service: serverless-rest-api-with-dynamodb
 
-frameworkVersion: ">=1.1.0 <2.20.0"
+frameworkVersion: ">=1.1.0"
 
 provider:
   name: aws
@@ -13,7 +13,7 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:Query
-        - dynamodb:Scan
+        - dynamodb:Scancd ..
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
@@ -21,13 +21,10 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
     - Effect: Allow
       Action:
-        - translate:*
+        - translate:TranslateText
+        - comprehend:DetectDominantLanguaje
       Resource: "*"
-    - Effect: Allow
-      Action:
-        - comprehend:*
-      Resource: "*"
-      
+
 functions:
   create:
     handler: todos/create.create
