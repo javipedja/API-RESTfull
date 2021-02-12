@@ -13,7 +13,7 @@ provider:
     - Effect: Allow
       Action:
         - dynamodb:Query
-        - dynamodb:Scancd ..
+        - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
         - dynamodb:UpdateItem
@@ -21,8 +21,8 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
     - Effect: Allow
       Action:
+        - comprehend:DetectDominantLanguage
         - translate:TranslateText
-        - comprehend:DetectDominantLanguaje
       Resource: "*"
 
 functions:
