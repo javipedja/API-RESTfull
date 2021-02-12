@@ -21,8 +21,8 @@ provider:
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
     - Effect: Allow
       Action:
+        - comprehend:DetectDominantLanguage
         - translate:TranslateText
-        - comprehend:DetectDominantLanguaje
       Resource: "*"
 
 functions:
